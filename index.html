@@ -1,42 +1,42 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>शायरी वाला भाई 😄</title>
-<script src="https://cdn.tailwindcss.com"></script>
-</head>
-
-<body class="bg-gradient-to-r from-purple-600 to-indigo-700 min-h-screen flex items-center justify-center text-white">
-
-<div class="bg-white/10 p-6 rounded-2xl w-full max-w-md backdrop-blur">
-    <h1 class="text-3xl font-bold text-center mb-4">AI शायरी 🎤</h1>
-
-    <textarea id="topic" class="w-full p-3 rounded-xl text-black" placeholder="किस पर शायरी चाहिए?"></textarea>
-
-    <button onclick="banaiye()" class="w-full mt-4 bg-yellow-400 text-black font-bold py-3 rounded-xl">
-        शायरी बना दो 😜
-    </button>
-
-    <p id="output" class="mt-6 text-xl text-center"></p>
-</div>
-
 <script>
-function banaiye(){
-    const topic = document.getElementById("topic").value;
-    if(topic===""){
-        alert("कुछ तो लिखो भाई 😅");
-        return;
-    }
+async function generateShayari() {
+  const topic = document.getElementById("userTopic").value;
+  const result = document.getElementById("resultText");
+  const card = document.getElementById("resultCard");
 
-    const shayari = `😄  
-${topic} पर शायरी है ज़रा हटके,  
-दिल से निकली है पर दिमाग से नहीं भटके!  
-😜`;
+  if (!topic) {
+    alert("कुछ लिखो भाई 😅");
+    return;
+  }
 
-    document.getElementById("output").innerText = shayari;
+  card.classList.remove("hidden");
+  result.innerText = "AI शायरी सोच रहा है... 🧠✨";
+
+  try {
+    const API_KEY = "AIzaSyCuSjUQIGmMgbIx54x1SLzLy3U5nAwo3mM";
+
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{
+              text: `2 लाइन की मज़ेदार या भावुक हिंदी शायरी लिखो इस विषय पर: ${topic}`
+            }]
+          }]
+        })
+      }
+    );
+
+    const data = await res.json();
+    const shayari = data.candidates[0].content.parts[0].text;
+
+    result.innerText = shayari;
+
+  } catch (e) {
+    result.innerText = "❌ AI अभी काम नहीं कर रहा, API Key चेक करो";
+  }
 }
 </script>
-
-</body>
-</html>
