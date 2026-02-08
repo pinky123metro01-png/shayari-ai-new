@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>शायरी वाला भाई 😄</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-r from-purple-600 to-indigo-700 min-h-screen flex items-center justify-center text-white">
+
+<div class="bg-white/10 p-6 rounded-2xl w-full max-w-md backdrop-blur">
+    <h1 class="text-3xl font-bold text-center mb-4">AI शायरी 🎤</h1>
+
+    <textarea id="topic" class="w-full p-3 rounded-xl text-black" placeholder="किस पर शायरी चाहिए?"></textarea>
+
+    <button onclick="banaiye()" class="w-full mt-4 bg-yellow-400 text-black font-bold py-3 rounded-xl">
+        शायरी बना दो 😜
+    </button>
+
+    <p id="output" class="mt-6 text-xl text-center"></p>
+</div>
+
+<script>
+function banaiye(){
+    const topic = document.getElementById("topic").value;
+    if(topic===""){
+        alert("कुछ तो लिखो भाई 😅");
+        return;
+    }
+
+    const shayari = `😄  
+${topic} पर शायरी है ज़रा हटके,  
+दिल से निकली है पर दिमाग से नहीं भटके!  
+😜`;
+
+    document.getElementById("output").innerText = shayari;
+}
+</script>
+
+</body>
+</html>
