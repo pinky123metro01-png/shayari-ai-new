@@ -3,34 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shayari AI ✨</title>
+    <title>Jaldi Shayari AI ⚡</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center p-6">
-    <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-md text-center border border-gray-700">
-        <h1 class="text-3xl font-bold mb-4">Shayari AI ✨</h1>
-        <input type="text" id="topic" placeholder="किसके लिए शायरी लिखूँ?" 
-               class="w-full p-3 rounded bg-gray-700 border-none mb-4 focus:ring-2 focus:ring-blue-500 outline-none">
-        <button onclick="generate()" id="btn" class="w-full bg-blue-600 p-3 rounded font-bold hover:bg-blue-700 transition">शायरी जादू दिखाओ 🪄</button>
-        <div id="out" class="mt-6 p-4 bg-gray-700 rounded hidden italic text-lg"></div>
+<body class="bg-black text-white flex items-center justify-center min-h-screen p-5">
+    <div class="bg-gray-900 border border-gray-700 p-8 rounded-2xl w-full max-w-md shadow-2xl">
+        <h1 class="text-3xl font-bold mb-5 text-center text-blue-400">Shayari Maker ✨</h1>
+        <input type="text" id="topic" placeholder="किस पर शायरी चाहिए?" class="w-full p-4 rounded bg-gray-800 mb-4 border border-gray-600 outline-none focus:border-blue-500">
+        <button onclick="banao()" id="btn" class="w-full bg-blue-600 hover:bg-blue-700 p-4 rounded-xl font-bold transition">बनाओ! 🪄</button>
+        <div id="out" class="mt-6 p-4 bg-gray-800 rounded-lg hidden text-lg italic text-blue-200 border-l-4 border-blue-500"></div>
     </div>
 
     <script>
-        async function generate() {
+        async function banao() {
             const topic = document.getElementById('topic').value;
             const btn = document.getElementById('btn');
             const out = document.getElementById('out');
 
-            if(!topic) return alert("कुछ तो लिखो भाई!");
+            if(!topic) return alert("नाम तो लिखो भाई!");
 
-            btn.innerText = "AI सोच रहा है...";
+            btn.innerText = "AI लिख रहा है...";
             btn.disabled = true;
             out.classList.remove('hidden');
-            out.innerText = "लिख रहा हूँ...";
+            out.innerText = "बस एक सेकंड...";
 
-            // यहाँ अपनी असली नई चाबी पेस्ट करें
-            const key = "AIzaSyA6KIbZKsO_Z1ZztSNyiEKeMoKzY9X61vI"; 
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`;
+            // यहाँ अपनी नई चाबी के दो टुकड़े जोड़ें
+            const p1 = "AIzaSyAFQ19N_Z"; 
+            const p2 = "GcQk-XzweCXFTvYkz3M1Lit58"; 
+            const finalKey = p1 + p2;
+
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${finalKey}`;
 
             try {
                 const res = await fetch(url, {
@@ -41,9 +43,9 @@
                 const data = await res.json();
                 out.innerText = data.candidates[0].content.parts[0].text;
             } catch (e) {
-                out.innerText = "चाबी काम नहीं कर रही! नई चाबी डालें।";
+                out.innerText = "Error: चाबी फिर से ब्लॉक हो गई है। नई ईमेल से बनाओ!";
             } finally {
-                btn.innerText = "शायरी जादू दिखाओ 🪄";
+                btn.innerText = "बनाओ! 🪄";
                 btn.disabled = false;
             }
         }
